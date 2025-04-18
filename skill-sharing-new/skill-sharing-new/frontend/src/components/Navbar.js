@@ -109,3 +109,220 @@ function Navbar() {
             ElevateHub
           </Link>
         </Typography>
+
+
+        {/* Desktop View */}
+        {!isMobile ? (
+          <div style={{ display: 'flex', gap: '15px', alignItems: 'center' }}>
+            {isAuthenticated ? (
+              <>
+                <Button
+                  component={Link}
+                  to="/home"
+                  startIcon={<HomeIcon />}
+                  style={{
+                    color: 'white',
+                    textTransform: 'capitalize',
+                    fontWeight: 500,
+                    fontSize: '16px',
+                  }}
+                >
+                  Home
+                </Button>
+                <Button
+                  component={Link}
+                  to="/about-us"
+                  startIcon={<InfoIcon />}
+                  style={{
+                    color: 'white',
+                    textTransform: 'capitalize',
+                    fontWeight: 500,
+                    fontSize: '16px',
+                  }}
+                >
+                  About Us
+                </Button>
+                <Button
+                  component={Link}
+                  to="/courses"
+                  startIcon={<SchoolIcon />}
+                  style={{
+                    color: 'white',
+                    textTransform: 'capitalize',
+                    fontWeight: 500,
+                    fontSize: '16px',
+                  }}
+                >
+                  Courses
+                </Button>
+                {role === 'instructor' && (
+                  <Button
+                    component={Link}
+                    to="/add-course"
+                    startIcon={<AddIcon />}
+                    style={{
+                      color: 'white',
+                      textTransform: 'capitalize',
+                      fontWeight: 500,
+                      fontSize: '16px',
+                    }}
+                  >
+                    Add Course
+                  </Button>
+                )}
+                {role !== 'instructor' && (
+                  <Button
+                    component={Link}
+                    to="/dashboard"
+                    startIcon={<DashboardIcon />}
+                    style={{
+                      color: 'white',
+                      textTransform: 'capitalize',
+                      fontWeight: 500,
+                      fontSize: '16px',
+                    }}
+                  >
+                    Dashboard
+                  </Button>
+                )}
+                <IconButton onClick={handleMenuOpen} style={{ padding: 0 }}>
+                  <Avatar
+                    alt={profile.fullName}
+                    src={profile.profilePhoto}
+                    style={{
+                      width: '40px',
+                      height: '40px',
+                      border: '2px solid white',
+                      backgroundColor: '#4b266e',
+                      color: 'white',
+                      fontWeight: 600,
+                    }}
+                  >
+                    {!profile.profilePhoto && getInitials(profile.fullName)}
+                  </Avatar>
+                </IconButton>
+                <Menu
+                  anchorEl={anchorEl}
+                  open={Boolean(anchorEl)}
+                  onClose={handleMenuClose}
+                >
+                  <MenuItem
+                    component={Link}
+                    to="/profile"
+                    onClick={handleMenuClose}
+                  >
+                    Profile
+                  </MenuItem>
+                  <MenuItem onClick={handleLogout}>
+                    <LogoutIcon style={{ marginRight: '10px' }} />
+                    Logout
+                  </MenuItem>
+                  
+                </Menu>
+                <IconButton onClick={toggleTheme} style={{ color: 'white' }}>
+                  {mode === 'dark' ? <WbSunnyOutlinedIcon /> : <DarkModeOutlinedIcon />}
+                </IconButton>
+              </>
+            ) : (
+              <>
+                <Button
+                  component={Link}
+                  to="/login"
+                  style={{
+                    color: 'white',
+                    textTransform: 'capitalize',
+                    fontWeight: 500,
+                    fontSize: '16px',
+                  }}
+                >
+                  Login
+                </Button>
+                <Button
+                  component={Link}
+                  to="/signup"
+                  style={{
+                    color: '#ffd700',
+                    textTransform: 'capitalize',
+                    fontWeight: 600,
+                    fontSize: '16px',
+                  }}
+                >
+                  Signup
+                </Button>
+              </>
+            )}
+          </div>
+        ) : (
+         
+          <>
+            <IconButton
+              onClick={handleMenuOpen}
+              style={{ color: 'white' }}
+              size="large"
+            >
+              <MenuIcon />
+            </IconButton>
+            <Menu
+              anchorEl={anchorEl}
+              open={Boolean(anchorEl)}
+              onClose={handleMenuClose}
+            >
+              {isAuthenticated ? (
+                <>
+                  <MenuItem
+                    component={Link}
+                    to="/home"
+                    onClick={handleMenuClose}
+                    startIcon={<HomeIcon />}
+                  >
+                    Home
+                  </MenuItem>
+                  <MenuItem
+                    component={Link}
+                    to="/about-us"
+                    onClick={handleMenuClose}
+                  >
+                    About Us
+                  </MenuItem>
+                  <MenuItem
+                    component={Link}
+                    to="/courses"
+                    onClick={handleMenuClose}
+                  >
+                    Courses
+                  </MenuItem>
+                  <IconButton onClick={toggleTheme} style={{ color: 'white' }}>
+                  {mode === 'dark' ? <WbSunnyOutlinedIcon /> : <DarkModeOutlinedIcon />}
+                </IconButton>
+                  <MenuItem onClick={handleLogout}>
+                    <LogoutIcon style={{ marginRight: '10px' }} />
+                    Logout
+                  </MenuItem>
+                </>
+              ) : (
+                <>
+                  <MenuItem
+                    component={Link}
+                    to="/login"
+                    onClick={handleMenuClose}
+                  >
+                    Login
+                  </MenuItem>
+                  <MenuItem
+                    component={Link}
+                    to="/signup"
+                    onClick={handleMenuClose}
+                  >
+                    Signup
+                  </MenuItem>
+                </>
+              )}
+            </Menu>
+          </>
+        )}
+      </Toolbar>
+    </AppBar>
+  );
+}
+
+export default Navbar;
