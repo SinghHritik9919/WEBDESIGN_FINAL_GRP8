@@ -26,3 +26,93 @@ function ProtectedRoute({ children, allowedRoles }) {
 
   return children;
 }
+
+function App() {
+    const { isAuthenticated, role } = useSelector((state) => state.auth);
+  
+    return (
+      <ThemeProvider>
+        <Router>
+          <Navbar />
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route
+              path="/home"
+              element={
+                <ProtectedRoute allowedRoles={['instructor', 'user']}>
+                  <Home />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/about-us"
+              element={
+                <ProtectedRoute allowedRoles={['instructor', 'user']}>
+                  <Aboutus />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/add-course"
+              element={
+                <ProtectedRoute allowedRoles={['instructor']}>
+                  <AddCourse />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/courses"
+              element={
+                <ProtectedRoute allowedRoles={['instructor', 'user']}>
+                  <ViewCourses />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/dashboard"
+              element={
+                <ProtectedRoute allowedRoles={['instructor', 'user']}>
+                  <Dashboard />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/profile"
+              element={
+                <ProtectedRoute allowedRoles={['instructor', 'user']}>
+                  <Profile />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/watch/:id"
+              element={
+                <ProtectedRoute allowedRoles={['instructor', 'user']}>
+                  <WatchCourse />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/"
+              element={
+                isAuthenticated ? (
+                  role === 'instructor' ? (
+                    <Navigate to="/home" />
+                  ) : (
+                    <Navigate to="/courses" />
+                  )
+                ) : (
+                  <Navigate to="/login" />
+                )
+              }
+            />
+            <Route path="*" element={<Navigate to="/" />} />
+          </Routes>
+        </Router>
+      </ThemeProvider>
+    );
+  }
+  
+  export default App;
+  
