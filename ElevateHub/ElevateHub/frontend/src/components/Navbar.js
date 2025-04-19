@@ -93,7 +93,7 @@ function Navbar() {
           }}
         >
           <Link
-            to="/"
+            to="home"
             style={{
               textDecoration: 'none',
               color: 'white',
@@ -109,7 +109,6 @@ function Navbar() {
             ElevateHub
           </Link>
         </Typography>
-
 
         {/* Desktop View */}
         {!isMobile ? (
