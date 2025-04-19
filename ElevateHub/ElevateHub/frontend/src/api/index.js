@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'https://elevatehub-backend.onrender.com'
+  baseURL:  'https://webdesign-final-grp8.onrender.com'
 , 
 });
 
